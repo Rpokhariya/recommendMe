@@ -97,8 +97,3 @@ python app.py
 
 Built with ❤️ by [Reena Pokhariya](https://github.com/Rpokhariya)
 
----
-
-## 🪄 License
-
-Free to use under MIT License
