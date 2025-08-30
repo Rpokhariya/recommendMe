@@ -1,10 +1,10 @@
-# 📚 recommendMe — Book Recommendation System
+## 📚 recommendMe — Book Recommendation System
 
 A simple and intelligent full-stack book recommendation app built using **React (Vite)** and **Flask**. Users can explore top 50 books or get personalized recommendations based on a book title.
 
 ---
 
-## 🚀 Live Demo
+### 🚀 Live Demo
 
 - **Frontend (Vercel)**: [https://frontend-zeta-flax-60.vercel.app/](https://frontend-zeta-flax-60.vercel.app/)
 - **Backend (Render)**:
@@ -13,7 +13,7 @@ A simple and intelligent full-stack book recommendation app built using **React 
 
 ---
 
-## 🧰 Tech Stack
+### 🧰 Tech Stack
 
 | Layer    | Tech Used                           |
 | -------- | ----------------------------------- |
@@ -24,7 +24,7 @@ A simple and intelligent full-stack book recommendation app built using **React 
 
 ---
 
-## ✨ Features
+### ✨ Features
 
 - 🔎 Search for any book and get similar recommendations
 - 📘 View a curated list of Top 50 Books
@@ -34,7 +34,7 @@ A simple and intelligent full-stack book recommendation app built using **React 
 
 ---
 
-## 🗂 Project Structure
+### 🗂 Project Structure
 
 ```
 recommendMe/
@@ -45,9 +45,9 @@ recommendMe/
 
 ---
 
-## 🛠️ Setup Instructions
+### 🛠️ Setup Instructions
 
-### 📦 1. Clone the repo
+#### 📦 1. Clone the repo
 
 ```bash
 git clone https://github.com/Rpokhariya/recommendMe.git
@@ -56,7 +56,7 @@ cd recommendMe
 
 ---
 
-### 💻 2. Frontend (React)
+#### 💻 2. Frontend (React)
 
 ```bash
 cd frontend
@@ -66,7 +66,7 @@ npm run dev    # for local dev
 
 ---
 
-### 🐍 3. Backend (Flask)
+#### 🐍 3. Backend (Flask)
 
 ```bash
 cd backend
@@ -76,14 +76,14 @@ python app.py
 
 ---
 
-## 📊 Data Sources
+### 📊 Data Sources
 
 - `pt.pkl`, `similarity_score.pkl`, `book_info.pkl` — preprocessed using collaborative filtering
 - `Books.csv` — base dataset for author/image info
 
 ---
 
-## 📌 Notes
+### 📌 Notes
 
 - Backend exposes:
   - `/top-books` → returns top 50 books
@@ -93,12 +93,7 @@ python app.py
 
 ---
 
-## 🧑‍💻 Author
+### 🧑‍💻 Author
 
 Built with ❤️ by [Reena Pokhariya](https://github.com/Rpokhariya)
 
----
-
-## 🪄 License
-
-Free to use under MIT License
