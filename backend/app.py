@@ -22,7 +22,6 @@ app.add_middleware(
 )
 
 # --- Data Loading ---
-# This part remains the same as your Flask app. It loads the pickled data.
 try:
     with open('pt.pkl', 'rb') as f:
         pt = pickle.load(f)
@@ -49,7 +48,7 @@ except FileNotFoundError as e:
 
 # --- API Endpoints ---
 
-# FastAPI uses decorators to define routes. This is similar to Flask.
+# FastAPI uses decorators to define routes. 
 # The function returns a dictionary, and FastAPI automatically converts it to JSON.
 @app.get('/top-books')
 def get_top_books():
