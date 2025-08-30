@@ -16,7 +16,7 @@ function App() {
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get('https://http://127.0.0.1:5000/top-books')
+    axios.get('http://127.0.0.1:8000/top-books')
       .then(res => setTopBooks(res.data.books))
       .catch(() => setTopBooks([]));
   }, []);
@@ -30,7 +30,7 @@ function App() {
       setRecommendations(null);
       return;
     }
-    axios.get(`https://http://127.0.0.1:5000/recommend?book=${encodeURIComponent(book)}`)
+    axios.get(`http://127.0.0.1:8000/recommend?book=${encodeURIComponent(book)}`)
       .then(res => {
         const recs = res.data.recommended;
         if (!recs || recs.length === 0) {
