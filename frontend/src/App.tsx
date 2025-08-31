@@ -24,7 +24,7 @@ function App() {
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/top-books')
+    axios.get('${API_BASE_URL}/top-books')
       .then(res => setTopBooks(res.data.books))
       .catch(() => setTopBooks([]));
   }, []);
