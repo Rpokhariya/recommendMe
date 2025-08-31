@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import BookGrid from './components/BookGrid';
+import Summary from './components/Summary';
 
 type Book = {
   title: string;
@@ -10,13 +11,20 @@ type Book = {
   image: string;
 };
 
+const API_BASE_URL = 'http://127.0.0.1:5000';
+
 function App() {
   const [topBooks, setTopBooks] = useState<Book[]>([]);
   const [recommendations, setRecommendations] = useState<Book[] | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
+  //State for Summary Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [summary, setSummary] = useState('');
+  const [isSummaryLoading, setIsSummaryLoading] = useState(false);
+
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/top-books')
+    axios.get('http://127.0.0.1:5000/top-books')
       .then(res => setTopBooks(res.data.books))
       .catch(() => setTopBooks([]));
   }, []);
@@ -30,7 +38,7 @@ function App() {
       setRecommendations(null);
       return;
     }
-    axios.get(`http://127.0.0.1:8000/recommend?book=${encodeURIComponent(book)}`)
+    axios.get(`${API_BASE_URL}/recommend?book=${encodeURIComponent(book)}`)
       .then(res => {
         const recs = res.data.recommended;
         if (!recs || recs.length === 0) {
@@ -48,6 +56,29 @@ function App() {
       });
   };
 
+  // --- Function to get AI summary ---
+  const handleGetSummary = (book: Book) => {
+    setIsSummaryLoading(true);
+    setSummary('');
+    setIsModalOpen(true);
+
+    axios.post(`${API_BASE_URL}/summary`, {
+      title: book.title,
+      author: book.author
+    })
+    .then(response => {
+      setSummary(response.data.summary);
+    })
+    .catch(() => {
+      setSummary("Sorry, an error occurred while generating the summary.");
+    })
+    .finally(() => {
+      setIsSummaryLoading(false);
+    });
+  };
+
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
@@ -60,7 +91,16 @@ function App() {
       <BookGrid
         books={recommendations ?? topBooks}
         title={recommendations ? "Recommended Books" : "Top 50 Books"}
+        onGetSummary={handleGetSummary} // Pass the summary
       />
+
+      {isModalOpen && (
+        <Summary
+          summary={summary}
+          isLoading={isSummaryLoading}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }
