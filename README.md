@@ -19,6 +19,7 @@ A simple and intelligent full-stack book recommendation app built using **React 
 | -------- | ----------------------------------- |
 | Frontend | React + Vite + Tailwind             |
 | Backend  | Flask + Python                      |
+| AI Model | Google Gemini API                   |
 | Data     | Pandas, NumPy, Pickle               |
 | Hosting  | Vercel (frontend), Render (backend) |
 
@@ -31,6 +32,7 @@ A simple and intelligent full-stack book recommendation app built using **React 
 - 📸 Each book includes title, author, and cover image
 - 🔁 Automatically returns to top books when input is cleared
 - ⚙️ Responsive design with smooth UI
+- 🤖 Get a concise, AI-powered summary for any book with a single click.
 
 ---
 
@@ -74,20 +76,34 @@ pip install -r requirements.txt
 python app.py
 ```
 
+#### 🐍 4. Set up Google Gemini API KEY(Flask)
+
+
+Get your API key from Google AI Studio.
+Set it as an environment variable.
+```bash
+On macOS/Linux: export GOOGLE_API_KEY='YOUR_API_KEY'
+```
+```bash
+On Windows: set GOOGLE_API_KEY='YOUR_API_KEY'
+```
+
 ---
 
 ### 📊 Data Sources
 
 - `pt.pkl`, `similarity_score.pkl`, `book_info.pkl` — preprocessed using collaborative filtering
 - `Books.csv` — base dataset for author/image info
+- Google Gemini API — Used for generating dynamic, on-demand book summaries.
 
 ---
 
 ### 📌 Notes
 
 - Backend exposes:
-  - `/top-books` → returns top 50 books
-  - `/recommend?book=<title>` → returns 5 similar books
+  - `GET /top-books` → returns top 50 books
+  - `GET /recommend?book=<title>` → returns 5 similar books
+  - `POST /summary` → Takes a book title and author in the request body and returns an AI-generated summary.
 - Frontend uses Axios to consume these endpoints
 - CORS enabled for local and hosted frontend
 
