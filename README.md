@@ -63,7 +63,7 @@ cd recommendMe
 Open the frontend/src/App.tsx file.
 Make sure the API_BASE_URL constant is set for local development:
 ```bash
-const API_BASE_URL = 'http://127.0.0.1:5000';
+const API_BASE_URL = 'http://127.0.0.1:5000'
 ```
 Then
 
