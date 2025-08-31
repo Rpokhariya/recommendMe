@@ -9,7 +9,7 @@ An intelligent full-stack book recommendation app built using React (Vite), Flas
 - **Frontend (Vercel)**: [`https://recommendme-frontend-git-main-reenas-projects-b514a9e9.vercel.app/`](https://recommendme-frontend-git-main-reenas-projects-b514a9e9.vercel.app/)
 - **Backend (Render)**:
   - [`https://recommend-backend-ss6w.onrender.com/top-books`](https://recommend-backend-ss6w.onrender.com/top-books)
-  - [`https://recommend-backend-ss6w.onrender.com/book=<title>`](https://recommend-backend-ss6w.onrender.com/book=harry%20potter)
+  - [`https://recommend-backend-ss6w.onrender.com/book=<title>`](https://recommend-backend-ss6w.onrender.com/recommend?book=harry%20potter)
 
 ---
 
