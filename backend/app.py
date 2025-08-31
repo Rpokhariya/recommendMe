@@ -11,18 +11,24 @@ import google.generativeai as genai
 app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
 CORS(app)
 
+import pickle
+import gzip
+import os
+
 # --- Data Loading ---
 try:
-    with open('./pt.pkl', 'rb') as f:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    with open(os.path.join(base_dir, 'pt.pkl'), 'rb') as f:
         pt = pickle.load(f)
 
-    with open('./similarity_score.pkl', 'rb') as f:
+    with open(os.path.join(base_dir, 'similarity_score.pkl'), 'rb') as f:
         similarity_score = pickle.load(f)
 
-    with open('./top50_book_info.pkl', 'rb') as f:
+    with open(os.path.join(base_dir, 'top50_book_info.pkl'), 'rb') as f:
         book_info = pickle.load(f)
 
-    with gzip.open("./book_info.pkl.gz", "rb") as f:
+    with gzip.open(os.path.join(base_dir, "book_info.pkl.gz"), "rb") as f:
         full_book_info = pickle.load(f)
 
     top_book_info = {k.strip(): v for k, v in book_info.items()}
