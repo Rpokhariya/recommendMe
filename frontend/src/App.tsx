@@ -24,7 +24,7 @@ function App() {
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
 
   useEffect(() => {
-    axios.get('${API_BASE_URL}/top-books')
+    axios.get(`${API_BASE_URL}/top-books`)
       .then(res => setTopBooks(res.data.books))
       .catch(() => setTopBooks([]));
   }, []);
