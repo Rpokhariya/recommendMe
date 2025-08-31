@@ -68,24 +68,22 @@ npm run dev    # for local dev
 
 ---
 
-#### 🐍 3. Backend (Flask)
 
-```bash
-cd backend
-pip install -r requirements.txt
-python app.py
-```
-
-#### 🐍 4. Set up Google Gemini API KEY(Flask)
+#### 🐍 3. Set up Google Gemini API KEY(Flask)
 
 
 Get your API key from Google AI Studio.
 Set it as an environment variable.
 ```bash
-On macOS/Linux: export GOOGLE_API_KEY='YOUR_API_KEY'
-```
-```bash
 On Windows: set GOOGLE_API_KEY='YOUR_API_KEY'
+```
+
+#### 🐍 4. Backend (Flask)
+
+```bash
+cd backend
+pip install -r requirements.txt
+python app.py
 ```
 
 ---
