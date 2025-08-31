@@ -12,7 +12,7 @@ app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
 # Replace CORS(app) with this block
 CORS(app, resources={r"/*": {"origins": [
     "http://localhost:5173",  # local frontend
-    "https://your-frontend-name.vercel.app" # deployed Vercel frontend
+    "https://recommendme-frontend-git-main-reenas-projects-b514a9e9.vercel.app"  # deployed Vercel frontend
 ]}})
 
 import pickle
