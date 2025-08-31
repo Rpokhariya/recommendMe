@@ -9,7 +9,11 @@ import google.generativeai as genai
 
 # Initialize the Flask app to serve static files from a 'dist' directory
 app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
-CORS(app)
+# Replace CORS(app) with this block
+CORS(app, resources={r"/*": {"origins": [
+    "http://localhost:5173",  # local frontend
+    "https://your-frontend-name.vercel.app" # deployed Vercel frontend
+]}})
 
 import pickle
 import gzip
