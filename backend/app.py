@@ -13,16 +13,16 @@ CORS(app)
 
 # --- Data Loading ---
 try:
-    with open('pt.pkl', 'rb') as f:
+    with open('./pt.pkl', 'rb') as f:
         pt = pickle.load(f)
 
-    with open('similarity_score.pkl', 'rb') as f:
+    with open('./similarity_score.pkl', 'rb') as f:
         similarity_score = pickle.load(f)
 
-    with open('top50_book_info.pkl', 'rb') as f:
+    with open('./top50_book_info.pkl', 'rb') as f:
         book_info = pickle.load(f)
 
-    with gzip.open("book_info.pkl.gz", "rb") as f:
+    with gzip.open("./book_info.pkl.gz", "rb") as f:
         full_book_info = pickle.load(f)
 
     top_book_info = {k.strip(): v for k, v in book_info.items()}
@@ -54,7 +54,7 @@ def serve(path):
     if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
         return send_from_directory(app.static_folder, path)
     else:
-        return send_from_directory(app.static_folder, 'index.html')
+        return send_from_directory(app.static_folder, './index.html')
 
 
 # --- API Endpoints ---
