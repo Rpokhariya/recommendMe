@@ -18,15 +18,20 @@ function App() {
   const [recommendations, setRecommendations] = useState<Book[] | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  //State for Summary Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [summary, setSummary] = useState('');
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/top-books`)
-      .then(res => setTopBooks(res.data.books))
-      .catch(() => setTopBooks([]));
+      .then(res => {
+        setTopBooks(res.data.books || []);
+      })
+      .catch(err => {
+        console.error("Failed to fetch top books:", err);
+        setMessage("Could not load top books. Please try again later.");
+        setTopBooks([]);
+      });
   }, []);
 
   const handleSearch = (book: string) => {
@@ -34,7 +39,6 @@ function App() {
     setMessage(null);
 
     if (trimmed === "") {
-
       setRecommendations(null);
       return;
     }
@@ -44,19 +48,19 @@ function App() {
         if (!recs || recs.length === 0) {
           setMessage("🔍 No match found — returning to Top Books...");
           setRecommendations(null);
-          setTimeout(() => setMessage(null), 2000);
+          setTimeout(() => setMessage(null), 3000);
         } else {
           setRecommendations(recs);
         }
       })
-      .catch(() => {
-        setMessage("⚠️ Error fetching recommendations");
+      .catch((error) => {
+        console.error("Error fetching recommendations:", error);
+        setMessage("⚠️ Could not find book. Returning to Top Books.");
         setRecommendations(null);
-        setTimeout(() => setMessage(null), 2000);
+        setTimeout(() => setMessage(null), 3000);
       });
   };
 
-  // --- Function to get AI summary ---
   const handleGetSummary = (book: Book) => {
     setIsSummaryLoading(true);
     setSummary('');
@@ -90,8 +94,8 @@ function App() {
 
       <BookGrid
         books={recommendations ?? topBooks}
-        title={recommendations ? "Recommended Books" : "Top 50 Books"}
-        onGetSummary={handleGetSummary} // Pass the summary
+        title={recommendations ? "Recommended For You" : "Top 50 Books"}
+        onGetSummary={handleGetSummary}
       />
 
       {isModalOpen && (
