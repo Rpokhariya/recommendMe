@@ -6,7 +6,7 @@ An intelligent full-stack book recommendation app built using React (Vite), Flas
 
 ### 🚀 Live Demo
 
-- **Frontend (Vercel)**: [[https://frontend-zeta-flax-60.vercel.app/](https://recommend-j9r0b2wv3-reenas-projects-b514a9e9.vercel.app/)]
+- **Frontend (Vercel)**: [`https://vercel.com/reenas-projects-b514a9e9/recommendme-frontend/DFEwRRpUqPBL4zRjGEYk5T31eARt`](https://vercel.com/reenas-projects-b514a9e9/recommendme-frontend/DFEwRRpUqPBL4zRjGEYk5T31eARt)
 - **Backend (Render)**:
   - [`https://backend-ebcq.onrender.com/top-books`](https://recommend-backend-ss6w.onrender.com/top-books)
   - [`https://backend-ebcq.onrender.com/recommend?book=<title>`](https://recommend-backend-ss6w.onrender.com/recommend?book=harry%20potter)
