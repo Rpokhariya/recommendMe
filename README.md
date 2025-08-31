@@ -6,10 +6,10 @@ An intelligent full-stack book recommendation app built using React (Vite), Flas
 
 ### 🚀 Live Demo
 
-- **Frontend (Vercel)**: [https://frontend-zeta-flax-60.vercel.app/](https://frontend-zeta-flax-60.vercel.app/)
+- **Frontend (Vercel)**: [[https://frontend-zeta-flax-60.vercel.app/](https://recommend-j9r0b2wv3-reenas-projects-b514a9e9.vercel.app/)]
 - **Backend (Render)**:
-  - [`https://backend-ebcq.onrender.com/top-books`](https://backend-ebcq.onrender.com/top-books)
-  - [`https://backend-ebcq.onrender.com/recommend?book=<title>`](https://backend-ebcq.onrender.com/recommend?book=harry%20potter)
+  - [`https://backend-ebcq.onrender.com/top-books`](https://recommend-backend-ss6w.onrender.com/top-books)
+  - [`https://backend-ebcq.onrender.com/recommend?book=<title>`](https://recommend-backend-ss6w.onrender.com/recommend?book=harry%20potter)
 
 ---
 
@@ -59,6 +59,13 @@ cd recommendMe
 ---
 
 #### 💻 2. Frontend (React)
+
+Open the frontend/src/App.tsx file.
+Make sure the API_BASE_URL constant is set for local development:
+```bash
+const API_BASE_URL = 'http://127.0.0.1:5000';
+```
+Then
 
 ```bash
 cd frontend
