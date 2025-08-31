@@ -1,6 +1,6 @@
 ## 📚 recommendMe — Book Recommendation System
 
-A simple and intelligent full-stack book recommendation app built using **React (Vite)** and **Flask**. Users can explore top 50 books or get personalized recommendations based on a book title.
+An intelligent full-stack book recommendation app built using React (Vite), Flask, and the Google Gemini API. Users can explore top books, get personalized recommendations, and generate AI-powered summaries on demand.
 
 ---
 
