@@ -3,23 +3,18 @@ import pickle
 import gzip
 import numpy as np
 import pandas as pd
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import google.generativeai as genai
 
-# Initialize the Flask app to serve static files from a 'dist' directory
-app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
-# Replace CORS(app) with this block
-CORS(app, resources={r"/*": {"origins": [
-    "http://localhost:5173",  # local frontend
-    "https://recommendme-frontend-git-main-reenas-projects-b514a9e9.vercel.app"  # deployed Vercel frontend
-]}})
-
-import pickle
-import gzip
-import os
+# --- Vercel-Friendly Flask App Initialization ---
+# This is a pure API server. It does NOT serve any static frontend files.
+# Vercel's "vercel.json" file is responsible for routing frontend requests.
+app = Flask(__name__)
+CORS(app) # Basic CORS setup is sufficient. Vercel handles most routing.
 
 # --- Data Loading ---
+# This part is correct, as it uses relative paths, which is good for Vercel.
 try:
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -41,14 +36,16 @@ try:
 
 except FileNotFoundError as e:
     print(f"Error loading data files: {e}")
+    # Set to empty structures so the app doesn't crash if a file is missing
     pt, similarity_score, top_book_info, full_book_info = None, None, {}, {}
 
 # --- Google Generative AI Setup ---
 model = None
 try:
+    # On Vercel, you must set GOOGLE_API_KEY in the Environment Variables setting.
     api_key = os.environ.get('GOOGLE_API_KEY')
     if not api_key:
-        raise ValueError("GOOGLE_API_KEY not found in environment variables.")
+        raise ValueError("GOOGLE_API_KEY environment variable not set.")
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-1.5-flash')
     print("Gemini model configured successfully.")
@@ -56,22 +53,13 @@ except Exception as e:
     print(f"Error configuring Gemini API: {e}")
 
 
-
-# --- Static Files Serving (for React Frontend) ---
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, './index.html')
-
-
 # --- API Endpoints ---
+# The frontend calls '/api/top-books'. Vercel routes this to our function.
+# Flask inside the function just needs to handle the '/top-books' part.
 @app.route('/top-books')
 def get_top_books():
     if not top_book_info:
-        return jsonify({"error": "Book data not loaded."})
+        return jsonify({"error": "Book data not loaded on the server."}), 500
     books = [{"title": title, "author": data.get("author", "Unknown Author"), "image": data.get("image", "")} for title, data in top_book_info.items()]
     return jsonify({"books": books})
 
@@ -79,13 +67,13 @@ def get_top_books():
 def recommend():
     book = request.args.get('book', '')
     if not all([pt is not None, similarity_score is not None, full_book_info]):
-         return jsonify({"error": "Recommendation engine not ready."})
-         
+         return jsonify({"error": "Recommendation engine not ready on the server."}), 500
+
     q = book.strip().lower()
     matches = [t for t in pt.index if q in t.lower()]
     if not matches:
         return jsonify({"recommended": []})
-        
+
     try:
         idx = np.where(pt.index == matches[0])[0][0]
         sims = sorted(list(enumerate(similarity_score[idx])), key=lambda x: x[1], reverse=True)[1:6]
@@ -97,8 +85,7 @@ def recommend():
         return jsonify({"recommended": recommendations})
     except IndexError:
         return jsonify({"recommended": []})
-    
-# --- AI Summary Endpoint ---
+
 @app.route('/summary', methods=['POST'])
 def get_summary():
     if not model:
@@ -119,9 +106,7 @@ def get_summary():
     except Exception as e:
         print(f"Error during summary generation: {e}")
         return jsonify({'error': 'Failed to generate summary from the AI model.'}), 500
-# --------------------------------
 
-# --- Running the App ---
-if __name__ == '__main__':
-    app.run(debug=True)
-
+# The following block is NOT needed for Vercel and is removed.
+# if __name__ == '__main__':
+#     app.run(debug=True)
