@@ -11,7 +11,7 @@ type Book = {
   image: string;
 };
 
-const API_BASE_URL = 'https://recommend-backend-ss6w.onrender.com';
+const API_BASE_URL = 'api';
 
 function App() {
   const [topBooks, setTopBooks] = useState<Book[]>([]);
